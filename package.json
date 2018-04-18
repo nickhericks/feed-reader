@@ -1,0 +1,26 @@
+{
+  "name": "feed-reader",
+  "version": "1.0.0",
+  "description": "This project is part of Udacity's Front End Web Developer nanodegree program. Demonstrates experience using [Jasmine](http://jasmine.github.io/) to write a number of tests against a pre-existing application.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/udacity/frontend-nanodegree-feedreader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/udacity/frontend-nanodegree-feedreader/issues"
+  },
+  "homepage": "https://github.com/udacity/frontend-nanodegree-feedreader#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jasmine": "^4.0.0",
+    "gulp-jasmine-phantom": "^3.0.0",
+    "jasmine-jquery": "^2.1.1",
+    "jquery": "^3.3.1"
+  }
+}
