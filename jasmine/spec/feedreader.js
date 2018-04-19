@@ -48,7 +48,7 @@ $(function() {
 
 
     describe('The menu', function() {
-      const body = document.getElementsByTagName('body')[0];
+      // const body = $( "body" )[0];
 
       /* Ensures the menu element is
        * hidden by default. You'll have to analyze the HTML and
@@ -56,7 +56,7 @@ $(function() {
        * hiding/showing of the menu element.
        */
        it('is hidden by default', function() {
-          expect(body.className).toBe('menu-hidden');
+          expect($( "body" ).hasClass( "menu-hidden" )).toBe(true);
        });
 
        /* Ensure the menu changes
@@ -65,24 +65,23 @@ $(function() {
         * clicked and does it hide when clicked again.
         */
         it('changes visibility when icon is clicked', function() {
-          const menuIcon = document.querySelector('.menu-icon-link');
+          // const menuIcon = document.querySelector('.menu-icon-link');
 
           // After first click the menu is showing
-          menuIcon.click()
-          expect(body.className).not.toBe('menu-hidden');
+          // menuIcon.click()
+          $( ".menu-icon-link" ).click()
+          expect($( "body" ).hasClass( "menu-hidden" )).not.toBe(true);
 
           // After second click the menu is hidden
-          menuIcon.click()
-          expect(body.className).toBe('menu-hidden');
+          $( ".menu-icon-link" ).click()
+          expect($( "body" ).hasClass( "menu-hidden" )).toBe(true);
         });
     });
 
 
 
     describe('Initial Entries', function() {
-        var feed,
-            entries,
-            firstEntry;
+        var firstHeaderLength;
 
         /* Ensure when the loadFeed
          * function is called and completes its work, there is at least
@@ -99,15 +98,14 @@ $(function() {
 
 
          it('should be loaded', function(done) {
-           feed = document.querySelector('.feed');
-           entries = document.getElementsByClassName('.entry');
-           firstEntry = entries[0];
 
-           console.log(feed.className);
-           console.log(entries);
-           console.log(firstEntry);
+           loadFeed(0, function() {
 
-           expect(feed.className).toBe('feed');
+             firstHeaderLength = $( ".feed article h2" ).eq(0).text().length;
+
+           });
+
+             expect(firstHeaderLength).not.toBe(0);
 
            done();
          });
@@ -118,8 +116,8 @@ $(function() {
     describe('New Form Selection', function() {
 
         var feedListLast,
-            feedEntriesBefore,
-            feedEntriesAfter;
+            beforeContentLength,
+            afterContentLength;
 
         /* Ensure when a new feed is loaded
          * by the loadFeed function that the content actually changes.
@@ -127,33 +125,33 @@ $(function() {
          */
          beforeEach(function(done) {
 
-           loadFeed(0);
+           beforeContentLength = $( ".feed article h2" ).eq(0).text().length;
+
+          loadFeed(0, function() {
 
            feedListLast = document.querySelector('.feed-list li:last-child a');
-           feedEntriesBefore = $('.feed a:last-child article')[0];
-
            feedListLast.click()
+
+           });
 
            done();
          });
 
 
          it('results in content changing', function(done) {
-           var firstEntryBefore,
-              firstEntryAfter,
-              beforeContent,
-              afterContent;
 
-           firstEntryBefore = feedEntriesBefore.firstElementChild;
-           beforeContent = firstEntryBefore.textContent;
+          loadFeed(0, function() {
 
-           feedEntriesAfter = $('.feed a:last-child article')[0];
-           firstEntryAfter = feedEntriesAfter.firstElementChild;
-           afterContent = firstEntryAfter.textContent;
+             afterContentLength = $( ".feed article h2" ).eq(0).text().length;
 
-           expect(beforeContent === afterContent).not.toBe(true);
+           });
+
+           expect(beforeContentLength === afterContentLength).not.toBe(true);
 
            done();
          });
      });
+
+
+
 }());
